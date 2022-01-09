@@ -30,6 +30,8 @@
 
 ### Datawhale运筹-图论篇
 
+注：可以单独介绍也可以分散到各章节介绍
+
 1. 图的基本概念；最短路问题；
 2. 树及其基本性质；生成树与最小生成树；图的中心与中位点；图的矩阵表示；
 3. 割点和割边；连通度和边连通度；2-连通图的性质；
@@ -55,7 +57,7 @@
 3. SQP方法
 4. 内点法
 
-### Datawhale运筹-随机过程篇
+### Datawhale运筹-随机过程篇（包括排队论）
 
 ### Datawhale运筹-库存论篇
 
@@ -72,7 +74,7 @@
 | 成员   | 个人简介                                      | 个人主页                                                     |
 | ------ | --------------------------------------------- | ------------------------------------------------------------ |
 | 刘洋   | datawhale成员，中国科学院数学与系统科学研究院 | [知乎主页](https://www.zhihu.com/people/ming-ren-19-34)<br />公众号：鸣也的小屋<br />[个人主页](https://liu-yang-maker.github.io/Liu.Y/) |
-| 初晓宇 | datawhale成员，阿姆斯特丹自由大学计算机系统系 | [个人主页](http://www.chuxiaoyu.cn)                          |
+| Chu    | datawhale成员，阿姆斯特丹自由大学计算机系统系 | [个人主页](http://www.chuxiaoyu.cn)                          |
 | 管柯琴 | 厦门大学管理学院                              | [个人主页](https://www.yangsuoly.com/)                       |
 | 刘斯豪 | 广东工业大学数学与统计学院                    | 公众号：Lau Chaos                                            |
 
@@ -90,10 +92,3 @@
 ## LICENSE
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。
-
-
-
-
-
-
-
