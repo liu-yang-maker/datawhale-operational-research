@@ -59,7 +59,9 @@ $$
 
 这样的 $x^*$ 称为问题的局部最小点。类似地，可以定义严格局部最小点。在大多数情形，可行集 $S$ 是用函数约束(等式和不等式)显示的。
 
-其中 $E$ 和 $I$ 是等式和不等式约束的指标集。那么通常的优化问题取下面的形式：
+其中 $E$ 和 $I$ 是等式和不等式约束的指标集。
+
+那么通常的优化问题取下面的形式：
 $$
 \begin{array}{l}
 \min f(x) \\
@@ -114,7 +116,7 @@ $$
 
 整个过程可以描述为：$y^{(0)} \stackrel{x^{(1)}}{\rightarrow} z^{(1)} \stackrel{t}{\rightarrow} y^{(1)} \stackrel{x^{(2)}}{\rightarrow} \cdots \stackrel{t}{\rightarrow} y^{(L+1)}$.
 
-若选择平方误差为损失函数，则我们得到多层感知机的 优化模型：
+若选择平方误差为损失函数，则我们得到多层感知机的优化模型：
 $$
 \min _{x} \sum_{i=1}^{m}\left\|h\left(a_{i} ; x\right)-b_{i}\right\|_{2}^{2}+\lambda r(x)
 $$
@@ -127,7 +129,7 @@ $$
 
 <img src="./images/1.2.png" alt="1" style="zoom:50%;" />
 
-与之对应的优化模型
+与CNN对应的优化模型
 $$
 \min _{x} \sum_{i=1}^{m}\left\|h\left(a_{i} ; x\right)-b_{i}\right\|_{2}^{2}+\lambda r(x)
 $$
