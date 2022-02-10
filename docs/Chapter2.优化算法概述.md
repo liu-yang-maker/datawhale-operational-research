@@ -10,8 +10,6 @@
 5. Local Runtime Analysis of GD
 6. Pre-conditioners 
 
-------
-
 ## 梯度下降（GD）
 
 假设我们现在想要找出一个多元连续函数 ![[公式]](https://www.zhihu.com/equation?tex=f%28%5Comega%29) 的最小值 ![[公式]](https://www.zhihu.com/equation?tex=%5Cmin+_%7Bw+%5Cin+%5Cmathbb%7BR%7D%5E%7Bd%7D%7D+f%28w%29)
