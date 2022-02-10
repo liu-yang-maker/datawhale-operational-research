@@ -12,7 +12,7 @@
 
 ------
 
-### 梯度下降（GD）
+## 梯度下降（GD）
 
 假设我们现在想要找出一个多元连续函数 ![[公式]](https://www.zhihu.com/equation?tex=f%28%5Comega%29) 的最小值 ![[公式]](https://www.zhihu.com/equation?tex=%5Cmin+_%7Bw+%5Cin+%5Cmathbb%7BR%7D%5E%7Bd%7D%7D+f%28w%29)
 
@@ -42,7 +42,7 @@
 
 ![img](https://pic4.zhimg.com/80/v2-c42273cfcad6ef828ae9e50f5ddfb953_1440w.jpg)
 
-### 随机梯度下降（SGD）
+## 随机梯度下降（SGD）
 
 Motivation：损失函数的梯度的计算代价可能很大。
 
@@ -66,7 +66,7 @@ Motivation：损失函数的梯度的计算代价可能很大。
 
 这意味着，平均来说，随机梯度是对梯度的一个良好的估计。
 
-### 加速梯度下降（AGD）
+## 加速梯度下降（AGD）
 
 让我们考虑一个输入和输出分别为二维向量 ![[公式]](https://www.zhihu.com/equation?tex=%5Cboldsymbol%7Bx%7D+%3D+%5Bx_1%2C+x_2%5D%5E%5Ctop) 和标量的目标函数 ![[公式]](https://www.zhihu.com/equation?tex=f%28%5Cboldsymbol%7Bx%7D%29%3D0.1x_1%5E2%2B2x_2%5E2) 。
 
@@ -106,7 +106,7 @@ Motivation：损失函数的梯度的计算代价可能很大。
 ![[公式]](https://www.zhihu.com/equation?tex=%5Cboldsymbol%7Bv%7D_t+%5Cleftarrow+%5Cgamma+%5Cboldsymbol%7Bv%7D_%7Bt-1%7D+%2B+%281+-+%5Cgamma%29+%5Cleft%28%5Cfrac%7B%5Ceta_t%7D%7B1+-+%5Cgamma%7D+%5Cboldsymbol%7Bg%7D_t%5Cright%29.) 
 由指数加权移动平均的形式可得，速度变量 ![[公式]](https://www.zhihu.com/equation?tex=%5Cboldsymbol%7Bv%7D_t) 实际上对序列 ![[公式]](https://www.zhihu.com/equation?tex=%5C%7B%5Ceta_%7Bt-i%7D%5Cboldsymbol%7Bg%7D_%7Bt-i%7D+%2F%281-%5Cgamma%29%3Ai%3D0%2C%5Cldots%2C1%2F%281-%5Cgamma%29-1%5C%7D) 做了指数加权移动平均。换句话说，相比于小批量随机梯度下降，动量法在每个时间步的自变量更新量近似于将前者对应的最近 ![[公式]](https://www.zhihu.com/equation?tex=1%2F%281-%5Cgamma%29) 个时间步的更新量做了指数加权移动平均后再除以 ![[公式]](https://www.zhihu.com/equation?tex=1-%5Cgamma) 。所以，在动量法中，自变量在各个方向上的移动幅度不仅取决于当前梯度，还取决于过去的各个梯度在各个方向上是否一致。
 
-### 本地运行时间分析
+## 本地运行时间分析
 
 当迭代接近局部极小值时，梯度下降行为更为明显，因为该函数可以用二次函数进行局部逼近。因此这里为了简单起见，我们假设我们正在优化一个凸二次函数，并了解函数的曲率如何影响算法的收敛性。
 
@@ -115,7 +115,7 @@ Motivation：损失函数的梯度的计算代价可能很大。
 
 因此我们假设 ![[公式]](https://www.zhihu.com/equation?tex=A+%3D+diag%28%5Clambda_%7B1%7D%2C%5Ccdots%2C%5Clambda_d%29) ，其中 ![[公式]](https://www.zhihu.com/equation?tex=%5Clambda_1%5Cgeq+%5Clambda_2%5Cgeq+%5Ccdots+%5Cgeq+%5Clambda_d) ，这样该函数就可以化简为 ![[公式]](https://www.zhihu.com/equation?tex=f%28w%29+%3D+%5Cfrac%7B1%7D%7B2%7D+%5Csum%5E%7Bd%7D_%7Bi+%3D+1%7D%5Clambda_i+w_i%5E%7B2%7D) ，这样梯度下降更新可以写成： ![[公式]](https://www.zhihu.com/equation?tex=x+%5Cleftarrow+w+-+%5Ceta+%5Cnabla+f%28w%29+%3D+w-%5Ceta%5CSigma+w)
 
-### **Pre-conditioners**
+## **Pre-conditioners**
 
 从上面的二次型例子中，我们可以看到如果我们在不同的坐标系中使用不同的学习率，这将是得到优化。换句话说，如果我们对每个坐标引入一个学习率 ![[公式]](https://www.zhihu.com/equation?tex=%5Ceta_i+%3D+1%2F%5Clambda_i) ，那么我们可以实现更快的收敛。
 
