@@ -10,7 +10,7 @@
 
 为了克服这一缺陷，人们提出了动量方法（momentum），即带有动量的梯度下降算法（简称动量），旨在加速学习。动量法借鉴了物理学的思想，想象一下在无摩擦的碗里滚动一个球，没有阻力时，它的动量会越来越大，但是如果遇到了阻力，速度就会变小。
 
-![WeChat Image_20220211160651](.\images\WeChat Image_20220211160651.gif)
+![1](.\images\1.gif)
 
 动量法的思想是：参数更新时在一定程度上保留之前更新的方向，同时又利用当前 `batch` 的梯度微调最终方向，简而言之就是通过积累之前的动量来加速当前的梯度。这样一来，可以在一定程度上增加稳定性，从而学习得更快，并且还有一定摆脱局部最优解的能力[^1]。综上，动量法具有两个明显的优点：
 
@@ -19,13 +19,111 @@
 
 ## 1.2 动量法原理
 
-从形式上来看，动量方法引入了一个速度变量 $v$，它代表参数移动的方向和大小。动量方法的具体迭代格式如下[^2]：
+### 1.2.1 公式推导
 
-$$ v_i = \gamma v_{i-1} + \eta \nabla L(\theta)$$
+从形式上来看，动量方法将当前的梯度与上一步移动方向相结合，以加速算法的收敛。具体而言，它引入了一个速度变量 $v$，它代表参数移动的方向和大小。
 
-$$ \theta_i = \theta_{i-1} - v_i$$
+首先，我们回顾一下标准梯度下降的迭代公式：
 
-其中 $v_i$ 是当前速度，$\gamma$ 是动量参数，是一个小于 1的正数，$\eta$ 是学习率。让我们考虑两个极端情况来更好地理解动量。如果动量参数  $\gamma = 0$，那么它与最初始的梯度下降完全相同，如果 $\gamma=1$，那么相当于最开始的无摩擦的碗类比一样，前后不停地摇摆，这肯定不是我们想要的结果。通常动量参数选择在 `0.8 - 0.9` 左右，它就像一个有一点摩擦的表面，所以它最终会减慢并停止[^3]。
+$$x_{t+1} = x_t - \alpha\nabla f(x_t)$$
+
+其中，$\alpha$ 叫做步长，或者叫做学习率（`learning rate`），而动量法在此基础上引入了“动量项“  $\beta(x_t - x_{t-1})$。因此，完整的动量迭代[^3]：
+
+$$ v_t = \beta v_{t-1} - \alpha\nabla f(x_t)$$
+
+$$ x_t = x_{t-1} + v_t$$
+
+ $$v_t = \beta(x_t - x_{t-1})$$
+
+其中 $v_t$ 是当前速度，$\beta$ 是动量参数，是一个小于 1的正数，$\alpha$ 是学习率。
+
+如果我们把当前迭代想象成一个有质量的小球，那么我们的梯度下降更新应该与之前的步长成正比。整理可得：
+
+$$x_t+1 = x_t - \eta \nabla f(x_t) + \beta(x_t - x_{t-1})$$
+
+### 1.2.2 实例推导
+
+接下来，我们以一个简单的凸函数来推导动量法，考虑一个简单的二次目标[^2]：
+
+$$f(x) = \frac{h}{2} x^2$$
+
+于是又动量更新规则为：
+$$
+\begin{align*}
+x_{t+1} &= x_t - \alpha \nabla f(x_t) + \beta (x_t - x_{t-1}) \\
+	&= x_t -\alpha h x_t + \beta (x_t - x_{t-1}) \\
+	&= (1+\beta -\alpha h) x_t - \beta x_{t-1}
+
+\end{align*}
+$$
+进而可以得到线性表达式：
+$$
+\left[\begin{array}{c}
+x_{t+1} \\
+x_{t}
+\end{array}\right]=\left[\begin{array}{cc}
+1-\alpha h+\beta & -\beta \\
+1 & 0
+\end{array}\right]\left[\begin{array}{c}
+x_{t} \\
+x_{t-1}
+\end{array}\right]
+$$
+令 $A = \left[\begin{array}{cc} 1-\alpha h+\beta & -\beta \\ 1 & 0 \end{array}\right]$，因此可以将 $A$ 进行递归 $t$ 步得到 $x_{t+1}, x_t$ 和 $x_1, x_0$ 之间的关系，有：
+$$
+\left[\begin{array}{c}
+x_{t+1} \\
+x_{t}
+\end{array}\right]=A^{t}\left[\begin{array}{l}
+x_{1} \\
+x_{0}
+\end{array}\right]
+$$
+考虑将 $x_t$ 与最优的 $x$ 进行比较，有：
+$$
+\left[\begin{array}{c}
+x_{t+1}-x^{*} \\
+x_{t}-x^{*}
+\end{array}\right]=A^{t}\left[\begin{array}{l}
+x_{1}-x^{*} \\
+x_{0}-x^{*}
+\end{array}\right]
+$$
+取范数：
+$$
+\left\|\left[\begin{array}{c}
+x_{t+1}-x^{*} \\
+x_{t}-x^{*}
+\end{array}\right]\right\|_{2}=\left\|A^{t}\left[\begin{array}{l}
+x_{1}-x^{*} \\
+x_{0}-x^{*}
+\end{array}\right]\right\|_{2} \leq\left\|A^{t}\right\|_{2}\left\|\left[\begin{array}{l}
+x_{1}-x^{*} \\
+x_{0}-x^{*}
+\end{array}\right]\right\|_{2}
+$$
+
+##### Lemma 1.  给定向量空间 $M_n$ 内的矩阵 $A$ 和 $\varepsilon > 0$，存在矩阵范数 $\|\cdot\|$ 满足 $\|A\| \leq \rho(A)+\varepsilon$，其中，$\rho (A) = \max \{ |\lambda_1, \cdots, \lambda_n|\}$（即特征向量中的最大值）。[^6]
+
+所以，由 `Lemma 1`可知，存在一个矩阵范数满足：
+$$
+\left\|A^{t}\right\| \leq(\rho(A)+\epsilon)^{t}
+$$
+其中，$\rho (A) = \max \{ |\lambda_1, \lambda_2|\}$，$\lambda_1, \lambda_2$分别表示特征向量，因此有：
+$$
+\left\|\left[\begin{array}{c}
+x_{t+1}-x^{*} \\
+x_{t}-x^{*}
+\end{array}\right]\right\|_{2} \leq(\rho(A)+\epsilon)^{t}\left\|\left[\begin{array}{l}
+x_{1}-x^{*} \\
+x_{0}-x^{*}
+\end{array}\right]\right\|_{2}
+$$
+可以发现，经过迭代最终能够收敛到一个稳定的点。
+
+## 1.3 如何理解动量法
+
+如果我们把当前迭代想象成一个有质量的小球，那么我们的梯度下降更新应该与之前的步长成正比。让我们考虑两个极端情况来更好地理解动量。如果动量参数  $\gamma = 0$，那么它与最初始的梯度下降完全相同，如果 $\gamma=1$，那么相当于最开始的无摩擦的碗类比一样，前后不停地摇摆，这肯定不是我们想要的结果。通常动量参数选择在 `0.8~0.9` 左右，它就像一个有一点摩擦的表面，所以它最终会减慢并停止[^4]。
 
 ![Momentum-decy](.\images\Momentum-decy.gif)
 
@@ -33,25 +131,25 @@ $$ \theta_i = \theta_{i-1} - v_i$$
 
 ![Moment](.\images\Moment.jpg)
 
-比如我们的梯度每次都等于 $g$，而且方向都相同，那么动量法在该方向上使参数加速移动，有下面的公式：
+比如我们的梯度每次都等于 $g$，而且方向都相同，那么动量法在该反方向上使参数加速移动，有下面的公式：
 
 $$ v_0 = 0$$
 
-$$ v_1 = \gamma v_0 + \eta g = \eta g$$
+$$ v_1 = \beta v_0 + \alpha g = \alpha g$$
 
-$$ v_2 = \gamma v_1 + \eta g = (1 + \gamma) \eta g$$
+$$ v_2 = \beta v_1 + \alpha g = (1 + \beta ) \alpha g$$
 
-$$ v_3 = \gamma v_2 + \eta g = (1 + \gamma + \gamma^2) \eta g$$
+$$ v_3 = \beta v_2 + \alpha g = (1 + \beta + \beta ^2) \alpha g$$
 
 $$ \cdots$$
 
-$$ v_{+ \infty} = (1 + \gamma + \gamma^2 + \gamma^3 + \cdots) \eta g = \frac{1}{1 - \gamma} \eta g$$
+$$ v_{+ \infty} = (1 + \beta + \beta ^2 + \beta ^3 + \cdots) \alpha g = \frac{1}{1 - \beta } \alpha g$$
 
-如果我们把 $\gamma$ 定为 0.9，那么更新幅度的峰值就是原本梯度乘学习率的 10 倍。
+如果我们把 $\beta $ 定为 0.9，那么更新幅度的峰值就是原本梯度乘学习率的 10 倍。
 
 本质上说，动量法就仿佛我们从高坡上推一个球，小球在向下滚动的过程中积累了动量，在途中也会变得越来越快，最后会达到一个峰值，对应于我们的算法中就是，动量项会沿着梯度指向方向相同的方向不断增大，对于梯度方向改变的方向逐渐减小，得到了更快的收敛速度以及更小的震荡。
 
-## 1.3 动量法与梯度下降法直观对比
+## 1.4 动量法与梯度下降法直观对比
 
 设二次函数 $f(x, y) = x^2 + 10 y^2$，分别取初始点 $(x^0, y^0)$ 取为 $(10, 1)$ 和 $(-10, -1)$，我们使用梯度法和动量法进行 `15` 次迭代，结果如下图所示。可以看到普通梯度法生成的点列会在椭圆的短轴方向上来回移动，而动量方法生成的点列更快收敛到了最小值点。
 
@@ -59,9 +157,9 @@ $$ v_{+ \infty} = (1 + \gamma + \gamma^2 + \gamma^3 + \cdots) \eta g = \frac{1}{
 
 <center> Fig 动量方法和梯度下降法的表现对比 </center>
 
-## 1.4 动量法的实现
+## 1.5 动量法的实现
 
-### 1.4.1 自定义函数实现动量法
+### 1.5.1 自定义函数实现动量法
 
 下面，我们手动实现一个动量法，公式已在上面给出。
 
@@ -187,7 +285,7 @@ $$ v_{+ \infty} = (1 + \gamma + \gamma^2 + \gamma^3 + \cdots) \eta g = \frac{1}{
 
   ![loss-momentum](.\images\loss-momentum.png)
 
-#### 完整代码[^4]
+#### 完整代码[^5]
 
 ```python
 import torch
@@ -270,7 +368,7 @@ plt.ylabel('Loss')
 plt.show()
 ```
 
-### 1.4.2 调用 Pytorch 内置函数实现动量法
+### 1.5.2 调用 Pytorch 内置函数实现动量法
 
 事实上，`pytorch` 内置了动量法的实现，非常简单，直接在 `torch.optim.SGD(momentum=0.8)` 即可，下面实现一下
 
@@ -357,7 +455,7 @@ plt.ylabel('Loss')
 plt.show()
 ```
 
-## 1.5 动量法和随机梯度下降法对比
+## 1.6 动量法和随机梯度下降法对比
 
 我们可以对比一下动量法与不加动量的随机梯度下降法：
 
@@ -459,6 +557,8 @@ Results:
 ## Reference
 
 [^1]: 刘浩洋, 户将, 李勇锋, 文再文. (2021). 最优化：建模、算法与理论. 北京: 高教出版社.
-[^2]: Pytorch 中文手册, https://wizardforcel.gitbooks.io/learn-dl-with-pytorch-liaoxingyu/content/3.6.2.html
-[^3]:梯度下降的可视化解释(Adam，AdaGrad，Momentum，RMSProp)，https://mp.weixin.qq.com/s/LyNrPoEirLk0zwBxu0c18g
-[^4]:Pytorch 学习笔记，https://www.yangsuoly.com/2021/04/08/Pytorch/
+[^2]: IFT 6169: Theoretical principles for deep learning，https://mitliagkas.github.io/ift6085-dl-theory-class/
+[^3]: Pytorch 中文手册, https://wizardforcel.gitbooks.io/learn-dl-with-pytorch-liaoxingyu/content/3.6.2.html
+[^4]:梯度下降的可视化解释(Adam，AdaGrad，Momentum，RMSProp)，https://mp.weixin.qq.com/s/LyNrPoEirLk0zwBxu0c18g
+[^5]:Pytorch 学习笔记，https://www.yangsuoly.com/2021/04/08/Pytorch/
+[^6]:S. Foucart. Matrix norm and spectral radius. University Lecture, 2012. URL http://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect6.pdf
