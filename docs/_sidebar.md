@@ -7,5 +7,5 @@
   - 梯度下降与随机梯度下降
   - [小批量随机梯度下降](Chapter4.MBGD.md)
   - [动量法](Chapter5.Momentum.md)
-  - AdaGrad
+  - [AdaGrad](Chapter6.AdaGrad.md)
   - [AdaGrad变种 - Adam](Chapter7.Adam.md)
