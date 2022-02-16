@@ -22,7 +22,7 @@ $$
 $$
 J(x)=\frac{1}{2n}\sum_{i=1}^{n}(h(a_i;x)-b_i)^2
 $$
-计算$J$对$x$的梯度
+计算 $J$ 对 $x$ 的梯度
 $$
 \nabla J(x) = \frac{1}{n}\sum_{i=1}^{n}(h(a_i;x)-b_i) \cdot h_x(a_i;x)
 $$
