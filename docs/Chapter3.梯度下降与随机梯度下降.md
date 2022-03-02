@@ -1,7 +1,7 @@
 # 梯度下降与随机梯度下降
-线性模型和神经网络的训练都可以描述成一个优化问题。即设$\omega^{(1)},\omega^{(2)},\cdots\omega^{(l)}$为优化变量（他们可以是向量、矩阵、张量）。我们通常会遇到求解这样一个优化问题：
+线性模型和神经网络的训练都可以描述成一个优化问题。即设 $\omega^{(1)},\omega^{(2)},\cdots\omega^{(l)}$ 为优化变量（他们可以是向量、矩阵、张量）。我们通常会遇到求解这样一个优化问题：
 $$
-min_{w^{(1)},\cdots ,w^{(l)}}\quad L(w^{(1)},\cdots ,w^{(l)})
+\min_{w^{(1)},\cdots ,w^{(l)}}\quad L(w^{(1)},\cdots ,w^{(l)})
 $$
 对于这样一个比较简单的无约束优化问题，我们常使用梯度下降算法(Gradient Descent, 缩写GD)和随机梯度下降算法(Stochastic Gradient Descent, 缩写SGD)
 
@@ -13,10 +13,9 @@ $$
 $$
 \underbrace{\nabla_{\boldsymbol{w}^{(i)}} L\left(\boldsymbol{w}^{(1)}, \cdots, \boldsymbol{w}^{(l)}\right) \triangleq \frac{\partial L\left(\boldsymbol{w}^{(1)}, \cdots, \boldsymbol{w}^{(l)}\right)}{\partial \boldsymbol{w}^{(i)}}}_{\text {两种符号都表示 } L \text { 关于 } \boldsymbol{w}^{(l)} \text { 的梯度 }}, \quad \forall i=1, \cdots, l .
 $$
-注意梯度$\nabla _{w^(i)}L$的形状应该和$w^(i)$的形状完全一致。
+注意梯度 $\nabla _{w^{(i)}}L$ 的形状应该和 $w^{(i)}$ 的形状完全一致。
 
-如果用TensorFlow和PyTorch 等深度学习平台，你不需要关心梯度是如何求出来的。只要你定义的函数对某个变量可微，TensorFlow 和PyTorch 就可以自动求该函数关于该变量的梯度。但是我们应该注意在写程序前检查梯度的形状与变量的形
-状是否相同。
+如果用TensorFlow和PyTorch 等深度学习平台，你不需要关心梯度是如何求出来的。只要你定义的函数对某个变量可微，TensorFlow 和PyTorch 就可以自动求该函数关于该变量的梯度。但是我们应该注意在写程序前检查梯度的形状与变量的形状是否相同。
 
 ## 梯度下降
 
@@ -30,11 +29,11 @@ $$
 $$
 w_{\text {new }}^{(i)} \leftarrow w_{\text {now }}^{(i)}-\alpha \cdot \nabla_{w^{(i)}} L\left(w_{\text {now }}^{(1)}, \cdots, w_{\text {now }}^{(l)}\right), \quad \forall i=1, \cdots, l
 $$
-其中$w_{\text {now }}^{(1)}, \cdots, w_{\text {now }}^{(l)}$为当前需要优化的变量
+其中 $w_{\text {now }}^{(1)}, \cdots, w_{\text {now }}^{(l)}$ 为当前需要优化的变量
 
-我们通常称上面式子中的$\alpha$为步长或者是学习率，他的设置影响着梯度下降算法的收敛速率，最终会影响神经网络的测试准确率，所以$\alpha$需要用户仔细调整。数学中常常通过线搜索的方式寻找$\alpha$，可以参考Jorge Nocedel的《Numerical Optimization》文献[1]，这里不再赘述。
+我们通常称上面式子中的 $\alpha$ 为步长或者是学习率，他的设置影响着梯度下降算法的收敛速率，最终会影响神经网络的测试准确率，所以 $\alpha$ 需要用户仔细调整。数学中常常通过线搜索的方式寻找 $\alpha$，可以参考Jorge Nocedel的《Numerical Optimization》文献[1]，这里不再赘述。
 
-当我们的优化函数是凸的L-利普希茨连续函数时，梯度下降法可以保证收敛性，且收敛速率为$O(\frac{1}{k})$，k为迭代步数。
+当我们的优化函数是凸的L-利普希茨连续函数时，梯度下降法可以保证收敛性，且收敛速率为 $O(\frac{1}{k})$，k为迭代步数。
 
 >  注:利普希茨连续的定义是：如果函数$f$在区间$Q$上以常数L-利普希茨连续，那么对于$x, y \in Q$有
 > $$
@@ -93,17 +92,9 @@ if __name__ == '__main__':
     gradient_descent_1d(grad_1d, cur_x=10, learning_rate=0.2, precision=0.000001, max_iters=10000)
 ```
 
-
-
-
-
 ## 随机梯度下降
 
-在需要进行大规模问题的优化时，计算梯度已经成为了一件非常麻烦的事情。我们是否能够用梯度样本中的一个例子来近似所有的梯度样本呢？
-
-答案是可以的！
-
-
+在需要进行大规模问题的优化时，计算梯度已经成为了一件非常麻烦的事情。我们是否能够用梯度样本中的一个例子来近似所有的梯度样本呢？答案是可以的！
 
 如果目标函数可以写成连加或者期望的形式，那么可以用随机梯度下降求解最小化问题。
 
@@ -111,7 +102,7 @@ if __name__ == '__main__':
 $$
 L\left(\boldsymbol{w}^{(1)}, \cdots, \boldsymbol{w}^{(l)}\right)=\frac{1}{n} \sum_{j=1}^{n} F_{j}\left(\boldsymbol{w}^{(1)}, \cdots, \boldsymbol{w}^{(l)}\right)
 $$
-函数$F_j$ 隐含第$j$个训练样本$(x_j , y_j)$。每次随机从集合${1, 2, \cdots , n} 中抽取一个整数，记作$j$。设当前的优化变量为$w_{\text {now }}^{(1)}, \cdots, w_{\text {now }}^{(l)}$计算此处的随机梯度，并且做随机梯度下降：
+函数 $F_j$ 隐含第 $j$ 个训练样本$(x_j , y_j)$。每次随机从集合 ${1, 2, \cdots , n}$ 中抽取一个整数，记作 $j$。设当前的优化变量为 $w_{\text {now }}^{(1)}, \cdots, w_{\text {now }}^{(l)}$ 计算此处的随机梯度，并且做随机梯度下降：
 $$
 \mid w_{\text {new }}^{(i)} \leftarrow w_{\text {now }}^{(i)}-\alpha \cdot \underbrace{\nabla_{w^{(i)}} F_{j}\left(w_{\text {now }}^{(1)}, \cdots, w_{\text {now }}^{(l)}\right)}_{\text {随机梯度 }}, \quad \forall i=1, \cdots, l .
 $$
@@ -119,7 +110,7 @@ $$
 
 事实上，SGD也可以保证收敛，具体证明过程比较复杂，感兴趣的话可以参考文献[4]。我们这里仅给出SGD收敛的一个充分条件：
 $$
-\sum_{k=1}^{\infty}\alpha_k=\infty且\sum_{k=1}^{\infty}\alpha_k^2<\infty
+\sum_{k=1}^{\infty}\alpha_k=\infty,\sum_{k=1}^{\infty}\alpha_k^2<\infty
 $$
 
 最后我们给出一个简单的python程序复习一下随机梯度下降法。

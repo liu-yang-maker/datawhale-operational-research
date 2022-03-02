@@ -12,30 +12,29 @@
   为此，我们是否可以设计一种算法会在根据梯度或者当前周期数就更新学习率呢？
 
   AdaGrad（Adaptive Subgradient Methods）
+  
   我们假设模型参数为$\theta$,$\theta^i$表示为第i个的参数，损失函数为$L(\theta)$.
   $$\eta^t = \frac{\eta}{\sqrt{t+1}}$$
   $$g^{t} = \frac{\partial L(\theta^t)}{\partial \theta}$$
   $$\sigma^t = \sqrt{\frac{1}{t+1}\sum_{i=0}^{t} g^i\odot g^i}$$ 
   $$\theta^{t+1} =\theta^t - \frac{\eta^t}{\sigma^t}g^t=\theta^t - \frac{\eta}{\sqrt{\sum_{i=0}^{t} g^i\odot g^i}}g^t $$
-  其中$\odot是哈达玛积,使得向量的对应元素相乘$。另外，由于$g^i\odot g^i$依旧是向量，所以实际上AdaGrad算法中模型参数$\theta$的分量都有他自己的学习率。
+  其中 $\odot$ 是哈达玛积,使得向量的对应元素相乘。另外，由于$g^i\odot g^i$依旧是向量，所以实际上AdaGrad算法中模型参数 $\theta$ 的分量都有他自己的学习率。
 ## 2. 收敛性
 在深度学习场景中，特别是在工业落地项目中，样本量往往都是上百万甚至上亿，这些数据是无法被一次性放入机器中去的，或者，有一些模型是线上部署的，服务器会实时地搜集用户数据并喂入模型，这些数据由于时空限制也是无法一次性放入内存中，所以我们只能分批次去加载这些数据，根据每批次的数据的去优化模型，这就是在线学习。
-我们假设$f_t(\theta)$是第$t$个批次的损失函数，一共有T个批次的数据，则
-$$f(\theta) = \sum_{t=1}^T f_t(\theta)$$
-对于这种在线算法，我们从regret的角度去证明其收敛性。
+
+我们假设$f_t(\theta)$是第$t$个批次的损失函数，一共有T个批次的数据，则 $f(\theta) = \sum_{t=1}^T f_t(\theta)$. 对于这种在线算法，我们从regret的角度去证明其收敛性。
+
 ### 2.1、基本假设和参数设置
-假设损失函数$f_t(\theta)$是凸函数, 定义如下regret
-$$R(T) = \sum_{t=1}^T f_t(\theta^t)-\min_{\theta}\sum_{t=1}^T f_t(\theta)$$
+假设损失函数$f_t(\theta)$是凸函数, 定义如下regret $R(T) = \sum_{t=1}^T f_t(\theta^t)-\min_{\theta}\sum_{t=1}^T f_t(\theta)$
+
 当$T \rightarrow \infty $, $R(T)$的平均值$\frac{R(T)}{T}\rightarrow 0 $ ,该算法收敛即 $\theta^* = arg \min_{\theta} \sum_{t=1}^T f_t(\theta)$.
 
 **假设一**
 
-假设$\theta$是一个维度为d的向量。并且可行域有界即对于分量$\forall \theta_i,\hat{\theta_i}$，存在$D_i$，使得下式成立
-$$ || \theta_i - \hat{\theta_i}|| \leq D_i$$
+假设$\theta$是一个维度为d的向量。并且可行域有界即对于分量$\forall \theta_i,\hat{\theta_i}$，存在$D_i$，使得下式成立 $ || \theta_i - \hat{\theta_i}|| \leq D_i$
 **假设二**
 
-假设$g^t := \frac{\partial f_t}{\partial \theta} |_{\theta^t}$，另，梯度的每个分量对$\forall t$满足
-$$g_i^T \leq G_i$$
+假设$g^t := \frac{\partial f_t}{\partial \theta} |_{\theta^t}$，另，梯度的每个分量对$\forall t$满足 $g_i^T \leq G_i$
 ### 2.2、证明过程
 假设 $\theta^* = arg \min_{\theta} \sum_{t=1}^T f_t(\theta)$，
 $$
@@ -45,39 +44,36 @@ R(T)&=\sum_{t=1}^T f_t(\theta^t)-\min_{\theta}\sum_{t=1}^T f_t(\theta)\\
 &=\sum_{t=1}^T \{f_t(\theta^t) - f_t(\theta^*)\}
 \end {aligned}
 $$
-由于$f_t(\theta)$ 是convex函数，所以
-$$ f_t(\theta^*) \geq f_t(\theta^t) + <g^t,\theta^*- \theta^t>$$ 
-上式是convex函数的 First-order condition，详细定义和证明可参考引用三的3.1.3小节.
-然后我们可以得到
-$$<g^t,  \theta^t - \theta^*> \geq  f_t(\theta^t) - f_t(\theta^*)    $$
-代入到$R(T)$,得
-$$R(T) \leq \sum_{t=1}^T <g^t,\theta^t -\theta^*>$$
-同时，
+由于$f_t(\theta)$ 是convex函数，所以 $ f_t(\theta^*) \geq f_t(\theta^t) + <g^t,\theta^*- \theta^t>$
+
+上式是convex函数的 First-order condition，详细定义和证明可参考引用三的3.1.3小节。然后我们可以得到 $<g^t,  \theta^t - \theta^*> \geq  f_t(\theta^t) - f_t(\theta^*)$
+
+代入到 $R(T)$，得 $R(T) \leq \sum_{t=1}^T <g^t,\theta^t -\theta^*>$
+
+同时
 $$
 \sum_{t=1}^T <g^t,\theta^t -\theta^*> = \sum_{t=1}^T \sum_{i=1}^d g^t_i(\theta^t_i -\theta^*_i)\\
 = \sum_{i=1}^d\sum_{t=1}^T g^t_i(\theta^t_i -\theta^*_i)
 $$
-最后我们可以得到，
-$$R(T) \leq \sum_{i=1}^d\sum_{t=1}^T g^t_i(\theta^t_i -\theta^*_i)$$
+最后我们可以得到，$R(T) \leq \sum_{i=1}^d\sum_{t=1}^T g^t_i(\theta^t_i -\theta^*_i)$
 
 同时，已知$\theta^{t+1} = \theta^t - \alpha^t_i g^t_i$， 其中 $\alpha^t_i = \frac{\eta}{\sum_{j=0}^t (g^j_i)^2}$.
-因此可以得到
-$$g^t_i(\theta^t_i -\theta^*_i) =\frac{1}{2\alpha^t_i}[(\theta^t_i -\theta^*_i)^2-(\theta^{t+1}_i -\theta^*_i)^2] +\frac{\alpha^t_i}{2}(g^t_i)^2 $$
-同时，
-$$\sum_{t=1}^T\frac{1}{2\alpha^t_i}[(\theta^t_i -\theta^*_i)^2-(\theta^{t+1}_i -\theta^*_i)^2] +\frac{\alpha^t_i}{2}(g^t_i)^2 \leq D^2_i \frac{1}{2\alpha^T_i}$$
-那么，
-$$R(T)\leq \sum_{i=1}^{d}[D_i^2 \frac{1}{2\alpha_i^T} + \sum_{t=1}^T \frac{\alpha^t_i}{2}(g^t_i)^2]$$
-代入$\alpha^t_i$的定义，
-最后可以得到
-$$R(T)\leq  \sum_{i=1}^{d}[D_i^2 \frac{1}{2\alpha} \sqrt{\sum_{j=0}^t (g^j_i)^2}+\frac{\alpha}{2} \sum_{t=1}^T \frac{(g^t_i)^2}{\sum_{j=0}^t (g^j_i)^2}]$$
+
+因此可以得到 $g^t_i(\theta^t_i -\theta^*_i) =\frac{1}{2\alpha^t_i}[(\theta^t_i -\theta^*_i)^2-(\theta^{t+1}_i -\theta^*_i)^2] +\frac{\alpha^t_i}{2}(g^t_i)^2 $
+
+同时，$\sum_{t=1}^T\frac{1}{2\alpha^t_i}[(\theta^t_i -\theta^*_i)^2-(\theta^{t+1}_i -\theta^*_i)^2] +\frac{\alpha^t_i}{2}(g^t_i)^2 \leq D^2_i \frac{1}{2\alpha^T_i}$
+
+那么，$R(T)\leq \sum_{i=1}^{d}[D_i^2 \frac{1}{2\alpha_i^T} + \sum_{t=1}^T \frac{\alpha^t_i}{2}(g^t_i)^2]$
+
+代入 $\alpha^t_i$ 的定义，最后可以得到 $R(T)\leq  \sum_{i=1}^{d}[D_i^2 \frac{1}{2\alpha} \sqrt{\sum_{j=0}^t (g^j_i)^2}+\frac{\alpha}{2} \sum_{t=1}^T \frac{(g^t_i)^2}{\sum_{j=0}^t (g^j_i)^2}]$
+
 根据假设二，可以得到
+$$
+\sqrt{\sum_{j=0}^t (g^j_i)^2}\leq G_i \sqrt{T+1}，
 
-$\sqrt{\sum_{j=0}^t (g^j_i)^2}\leq G_i \sqrt{T+1}$ 
-
-$\sum_{t=1}^T \frac{(g^t_i)^2}{\sum_{j=0}^t (g^j_i)^2}\leq 2G_i \sqrt{T+1}$
-
-最后，证明得到 
-$$R(T) \leq \sum_{i=1}^d [\frac{D_i^2}{2\alpha}+\alpha]G_i\sqrt{T}$$
+\sum_{t=1}^T \frac{(g^t_i)^2}{\sum_{j=0}^t (g^j_i)^2}\leq 2G_i \sqrt{T+1}
+$$
+最后，证明得到  $R(T) \leq \sum_{i=1}^d [\frac{D_i^2}{2\alpha}+\alpha]G_i\sqrt{T}$
 
 ## 3. 代码
 ```python
