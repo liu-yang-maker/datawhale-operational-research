@@ -49,12 +49,11 @@ $$f(x) = \frac{h}{2} x^2$$
 
 于是又动量更新规则为：
 $$
-\begin{align*}
+\begin{array}{l}
 x_{t+1} &= x_t - \alpha \nabla f(x_t) + \beta (x_t - x_{t-1}) \\
 	&= x_t -\alpha h x_t + \beta (x_t - x_{t-1}) \\
 	&= (1+\beta -\alpha h) x_t - \beta x_{t-1}
-
-\end{align*}
+\end{array}
 $$
 进而可以得到线性表达式：
 $$
