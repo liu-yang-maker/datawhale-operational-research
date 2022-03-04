@@ -1,4 +1,4 @@
-# 1. 动量方法 (Momentum)
+# 动量方法 (Momentum)
 
 ## 1.1 背景
 
@@ -555,9 +555,9 @@ Results:
 
 ## Reference
 
-[^1]: 刘浩洋, 户将, 李勇锋, 文再文. (2021). 最优化：建模、算法与理论. 北京: 高教出版社.
-[^2]: IFT 6169: Theoretical principles for deep learning，https://mitliagkas.github.io/ift6085-dl-theory-class/
-[^3]: Pytorch 中文手册, https://wizardforcel.gitbooks.io/learn-dl-with-pytorch-liaoxingyu/content/3.6.2.html
-[^4]:梯度下降的可视化解释(Adam，AdaGrad，Momentum，RMSProp)，https://mp.weixin.qq.com/s/LyNrPoEirLk0zwBxu0c18g
-[^5]:Pytorch 学习笔记，https://www.yangsuoly.com/2021/04/08/Pytorch/
-[^6]:S. Foucart. Matrix norm and spectral radius. University Lecture, 2012. URL http://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect6.pdf
+1. 刘浩洋, 户将, 李勇锋, 文再文. (2021). 最优化：建模、算法与理论. 北京: 高教出版社.
+2. IFT 6169: Theoretical principles for deep learning，https://mitliagkas.github.io/ift6085-dl-theory-class/
+3. Pytorch 中文手册, https://wizardforcel.gitbooks.io/learn-dl-with-pytorch-liaoxingyu/content/3.6.2.html
+4. 梯度下降的可视化解释(Adam，AdaGrad，Momentum，RMSProp)，https://mp.weixin.qq.com/s/LyNrPoEirLk0zwBxu0c18g
+5. Pytorch 学习笔记，https://www.yangsuoly.com/2021/04/08/Pytorch/
+6. S. Foucart. Matrix norm and spectral radius. University Lecture, 2012. URL http://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect6.pdf
