@@ -130,9 +130,13 @@ $$
 
 在每次更新梯度时，同时对其进行衰减（衰减系数 $w$ 略小于1），避免产生过大的参数。在Adam优化过程中，增加参数权重衰减项。解耦学习率和权重衰减两个超参数，能单独调试优化两个参数。
 $$
-x_{t+1}=w_{t} x_{t}
-\\
-x_{t+1}=x_{t}-\frac{\eta}{\sqrt{\hat{v}_{t}}+\epsilon} \hat{m}_{t}-\eta w_{t} x_{t}
+\begin{aligned}
+m_{t} &=\beta_{1} m_{t-1}+\left(1-\beta_{1}\right) g_{t} \\
+v_{t} &=\beta_{2} v_{t-1}+\left(1-\beta_{2}\right) g_{t}^{2} \\
+\hat{m}_{t} &=\frac{m_{t}}{1-\beta_{1}^{t}} \\
+\hat{v}_{t} &=\frac{v_{t}}{1-\beta_{2}^{t}} \\
+\theta_{t+1} &=\theta_{t}-\frac{\eta}{\sqrt{\hat{v}_{t}}+\epsilon} \hat{m}_{t}-\eta w_{t} \theta_{t}
+\end{aligned}
 $$
 
 - 修正指数移动均值
