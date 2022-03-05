@@ -29,7 +29,7 @@ $$
 $$
 w_{\text {new }}^{(i)} \leftarrow w_{\text {now }}^{(i)}-\alpha \cdot \nabla_{w^{(i)}} L\left(w_{\text {now }}^{(1)}, \cdots, w_{\text {now }}^{(l)}\right), \quad \forall i=1, \cdots, l
 $$
-其中 $w_{\text {now }}^{(1)}, \cdots, w_{\text {now }}^{(l)}$ 为当前需要优化的变量
+其中 $\displaystyle w_{\text {now }}^{(1)}, \cdots, w_{\text {now }}^{(l)}$ 为当前需要优化的变量
 
 我们通常称上面式子中的 $\alpha$ 为步长或者是学习率，他的设置影响着梯度下降算法的收敛速率，最终会影响神经网络的测试准确率，所以 $\alpha$ 需要用户仔细调整。数学中常常通过线搜索的方式寻找 $\alpha$，可以参考Jorge Nocedel的《Numerical Optimization》文献[1]，这里不再赘述。
 
