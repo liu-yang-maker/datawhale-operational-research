@@ -88,7 +88,7 @@
 | 管柯琴 | 厦门大学管理学院                              | [个人主页](https://www.yangsuoly.com/)                       |
 | 刘斯豪 | 广东工业大学数学与统计学院                    | 公众号：Lau Chaos                                            |
 | 黄建国 | 上海科技大学信息学院                          | [知乎](https://www.zhihu.com/people/ding-jian-cai-niao-91)   |
-| 李振东 | 上海大学钱伟长学院                                |[知乎主页](https://www.zhihu.com/people/li-zhen-dong-50-19) <br />[个人主页](dmax13.ltd)                            |
+| 李振东 | 上海大学钱伟长学院                                |[知乎主页](https://www.zhihu.com/people/li-zhen-dong-50-19) <br />[个人主页](https://dmax13.ltd)                            |
 
 #### 其他
 
