@@ -11,7 +11,7 @@ $$
 $$
 \underbrace{\nabla_{\boldsymbol{w}^{(i)}} L\left(\boldsymbol{w}^{(1)}, \cdots, \boldsymbol{w}^{(l)}\right) \triangleq \frac{\partial L\left(\boldsymbol{w}^{(1)}, \cdots, \boldsymbol{w}^{(l)}\right)}{\partial \boldsymbol{w}^{(i)}}}_{\text {两种符号都表示 } L \text { 关于 } \boldsymbol{w}^{(l)} \text { 的梯度 }}, \quad \forall i=1, \cdots, l .
 $$
-注意梯度 $\displaystyle\nabla _{w^{(i)}}L$ 的形状应该和 $\displaystyle w^{(i)}$ 的形状完全一致。
+注意梯度 $\displaystyle\nabla _{w^{(i)}}L$ 的形状应该和 $w^{(i)}$ 的形状完全一致。
 
 &ensp;&ensp;如果用TensorFlow和PyTorch 等深度学习平台，你不需要关心梯度是如何求出来的。只要你定义的函数对某个变量可微，TensorFlow 和PyTorch 就可以自动求该函数关于该变量的梯度。但是我们应该注意在写程序前检查梯度的形状与变量的形状是否相同。
 
