@@ -1,46 +1,44 @@
 # 第三章 梯度下降与随机梯度下降
-线性模型和神经网络的训练都可以描述成一个优化问题。即设 $\omega^{(1)},\omega^{(2)},\cdots\omega^{(l)}$ 为优化变量（他们可以是向量、矩阵、张量）。我们通常会遇到求解这样一个优化问题：
+&ensp;&ensp;线性模型和神经网络的训练通常都可以描述为一个优化问题。即设 $\omega^{(1)},\omega^{(2)},\cdots\omega^{(l)}$ 为优化变量（他们可以是向量、矩阵、张量）。我们通常会遇到求解这样一个优化问题：
 $$
 \min_{w^{(1)},\cdots ,w^{(l)}}\quad L(w^{(1)},\cdots ,w^{(l)})
 $$
-对于这样一个比较简单的无约束优化问题，我们常使用梯度下降算法(Gradient Descent, 缩写GD)和随机梯度下降算法(Stochastic Gradient Descent, 缩写SGD)
+对于这样一个比较简单的无约束优化问题，我们常使用梯度下降算法(Gradient Descent, 缩写GD)和随机梯度下降算法(Stochastic Gradient Descent, 缩写SGD)来寻找他的最优解。
 
-## 梯度
+## 1.梯度
 
-我们常常用的函数的一阶信息即梯度去求函数的最优值。
-
-上述问题的梯度可以记做
+&ensp;&ensp;我们常常用函数的一阶信息即梯度去求函数的最优值。上述问题的梯度可以记做
 $$
 \underbrace{\nabla_{\boldsymbol{w}^{(i)}} L\left(\boldsymbol{w}^{(1)}, \cdots, \boldsymbol{w}^{(l)}\right) \triangleq \frac{\partial L\left(\boldsymbol{w}^{(1)}, \cdots, \boldsymbol{w}^{(l)}\right)}{\partial \boldsymbol{w}^{(i)}}}_{\text {两种符号都表示 } L \text { 关于 } \boldsymbol{w}^{(l)} \text { 的梯度 }}, \quad \forall i=1, \cdots, l .
 $$
-注意梯度 $\nabla _{w^{(i)}}L$ 的形状应该和 $w^{(i)}$ 的形状完全一致。
+注意梯度 $\displaystyle\nabla _{w^{(i)}}L$ 的形状应该和 $\displaystyle w^{(i)}$ 的形状完全一致。
 
-如果用TensorFlow和PyTorch 等深度学习平台，你不需要关心梯度是如何求出来的。只要你定义的函数对某个变量可微，TensorFlow 和PyTorch 就可以自动求该函数关于该变量的梯度。但是我们应该注意在写程序前检查梯度的形状与变量的形状是否相同。
+&ensp;&ensp;如果用TensorFlow和PyTorch 等深度学习平台，你不需要关心梯度是如何求出来的。只要你定义的函数对某个变量可微，TensorFlow 和PyTorch 就可以自动求该函数关于该变量的梯度。但是我们应该注意在写程序前检查梯度的形状与变量的形状是否相同。
 
-## 梯度下降
+## 2.梯度下降
 
-我们定义梯度是一个上升方向。因此想要极小化一个函数，我们很自然地会想到沿着梯度方向的反方向去搜索。沿着梯度反方向走就叫做梯度下降(GD)。
+&ensp;&ensp;我们定义梯度是一个上升方向。因此想要极小化一个函数，我们很自然地会想到沿着梯度方向的反方向去搜索。沿着梯度反方向走就叫做梯度下降(GD)。
 $$
-x_{k+1}=x_{k}+\alpha_{k}\left(-\nabla f\left(x_{k}\right)\right)
+x_{k+1}=x_{k}+\alpha_{k}*\left(-\nabla f\left(x_{k}\right)\right).
 $$
-我们也可以用瞎子爬山的例子来很好的理解梯度下降算法的含义，瞎子爬山可以看做求一个函数的极大值，瞎子在每一步都可以获得当前的坡度（即梯度），但不知道其他点的任何情况。梯度下降法相当于在爬山中沿着山坡最陡的方向往前爬（或是下山）。
+&ensp;&ensp;我们也可以用瞎子爬山的例子来很好的理解梯度下降算法的含义，瞎子爬山可以看做求一个函数的极大值，瞎子在每一步都可以获得当前的坡度（即梯度），但不知道其他点的任何情况。梯度下降法相当于在爬山中沿着山坡最陡的方向往前爬（或是下山）。
 
 那么对于我们最上面提出的优化问题，我们可以写出他的梯度下降的算法过程：
 $$
 w_{\text {new }}^{(i)} \leftarrow w_{\text {now }}^{(i)}-\alpha \cdot \nabla_{w^{(i)}} L\left(w_{\text {now }}^{(1)}, \cdots, w_{\text {now }}^{(l)}\right), \quad \forall i=1, \cdots, l
 $$
-其中 $w_{\text {now }}^{(1)}, \cdots, w_{\text {now }}^{(l)}$ 为当前需要优化的变量
+其中 $\displaystyle w_{\text {now }}^{(1)}, \cdots, w_{\text {now }}^{(l)}$ 为当前需要优化的变量
 
-我们通常称上面式子中的 $\alpha$ 为步长或者是学习率，他的设置影响着梯度下降算法的收敛速率，最终会影响神经网络的测试准确率，所以 $\alpha$ 需要用户仔细调整。数学中常常通过线搜索的方式寻找 $\alpha$，可以参考Jorge Nocedel的《Numerical Optimization》文献[1]，这里不再赘述。
+&ensp;&ensp;我们通常称上面式子中的 $\alpha$ 为步长或者是学习率，他的设置影响着梯度下降算法的收敛速率，最终会影响神经网络的测试准确率，所以 $\alpha$ 需要用户仔细调整。数学中常常通过线搜索的方式寻找 $\alpha$，可以参考Jorge Nocedel的《Numerical Optimization》文献[1]，这里不再赘述。
 
-当我们的优化函数是凸的L-利普希茨连续函数时，梯度下降法可以保证收敛性，且收敛速率为 $O(\frac{1}{k})$，k为迭代步数。
+&ensp;&ensp;当我们的优化函数是凸的L-利普希茨连续函数时，梯度下降法可以保证收敛性，且收敛速率为 $\displaystyle O(\frac{1}{k})$，$k$为迭代步数。
 
 >  注:利普希茨连续的定义是：如果函数$f$在区间$Q$上以常数L-利普希茨连续，那么对于$x, y \in Q$有
 > $$
 > \|f(x)-f(y)\| \leq L\|x-y\|
 > $$
 
-我们给出一个简单的python程序再来复习一下梯度下降法。
+&ensp;&ensp;我们给出一个简单的python程序再来复习一下梯度下降法。
 ```python
 
 
@@ -92,28 +90,28 @@ if __name__ == '__main__':
     gradient_descent_1d(grad_1d, cur_x=10, learning_rate=0.2, precision=0.000001, max_iters=10000)
 ```
 
-## 随机梯度下降
+## 3.随机梯度下降
 
-在需要进行大规模问题的优化时，计算梯度已经成为了一件非常麻烦的事情。我们是否能够用梯度样本中的一个例子来近似所有的梯度样本呢？答案是可以的！
+&ensp;&ensp;在需要优化大规模的问题时，计算梯度已经成为了一件非常麻烦的事情。我们是否能够用梯度样本中的一些例子来近似所有的梯度样本呢？答案是可以的！
 
-如果目标函数可以写成连加或者期望的形式，那么可以用随机梯度下降求解最小化问题。
+&ensp;&ensp;如果目标函数可以写成连加或者期望的形式，那么就可以用随机梯度下降求解最小化问题。
 
-假设目标函数可以写成n 项连加形式：
+&ensp;&ensp;假设目标函数可以写成$n$项连加形式：
 $$
 L\left(\boldsymbol{w}^{(1)}, \cdots, \boldsymbol{w}^{(l)}\right)=\frac{1}{n} \sum_{j=1}^{n} F_{j}\left(\boldsymbol{w}^{(1)}, \cdots, \boldsymbol{w}^{(l)}\right)
 $$
-函数 $F_j$ 隐含第 $j$ 个训练样本$(x_j , y_j)$。每次随机从集合 ${1, 2, \cdots , n}$ 中抽取一个整数，记作 $j$。设当前的优化变量为 $w_{\text {now }}^{(1)}, \cdots, w_{\text {now }}^{(l)}$ 计算此处的随机梯度，并且做随机梯度下降：
+函数 $F_j$ 隐含第$j$个训练样本$(x_j , y_j)$。每次随机从集合 ${1, 2, \cdots , n}$ 中抽取一个整数，记作 $j$。设当前的优化变量为 $w_{\text {now }}^{(1)}, \cdots, w_{\text {now }}^{(l)}$ 计算此处的随机梯度，并且做随机梯度下降：
 $$
 \mid w_{\text {new }}^{(i)} \leftarrow w_{\text {now }}^{(i)}-\alpha \cdot \underbrace{\nabla_{w^{(i)}} F_{j}\left(w_{\text {now }}^{(1)}, \cdots, w_{\text {now }}^{(l)}\right)}_{\text {随机梯度 }}, \quad \forall i=1, \cdots, l .
 $$
-事实上，在实际操作我们会发现求一些非凸优化问题时使用GD算法，往往会停在鞍点上，无法收敛到局部最优点，这会导致测试的准确率非常低；而SGD可以跳出鞍点，继续向我们的局部最优点前进。
+&ensp;&ensp;事实上，在实际操作中我们会发现求一些非凸优化问题时使用GD算法，往往会停在鞍点上，无法收敛到局部最优点，这会导致测试的准确率非常低；而SGD可以跳出鞍点，继续向更好的最优点前进。
 
-事实上，SGD也可以保证收敛，具体证明过程比较复杂，感兴趣的话可以参考文献[4]。我们这里仅给出SGD收敛的一个充分条件：
+&ensp;&ensp;令人欣喜的是，SGD也可以保证收敛，具体证明过程比较复杂，感兴趣的话可以阅读文献[4]。我们这里仅给出SGD收敛的一个**充分条件**：
 $$
 \sum_{k=1}^{\infty}\alpha_k=\infty,\sum_{k=1}^{\infty}\alpha_k^2<\infty
 $$
 
-最后我们给出一个简单的python程序复习一下随机梯度下降法。
+&ensp;&ensp;最后我们给出一个简单的python程序复习一下随机梯度下降法。
 ```python
 import numpy as np
 import math

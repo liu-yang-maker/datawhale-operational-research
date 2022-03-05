@@ -14,15 +14,16 @@
   AdaGrad（Adaptive Subgradient Methods）
   
   我们假设模型参数为$\theta$,$\theta^i$表示为第i个的参数，损失函数为$L(\theta)$.
-  $$\eta^t = \frac{\eta}{\sqrt{t+1}}$$
-  $$g^{t} = \frac{\partial L(\theta^t)}{\partial \theta}$$
+  $$\displaystyle \eta^t = \frac{\eta}{\sqrt{t+1}}$$
+  $$\displaystyle g^{t} = \frac{\partial L(\theta^t)}{\partial \theta}$$
   $$\sigma^t = \sqrt{\frac{1}{t+1}\sum_{i=0}^{t} g^i\odot g^i}$$ 
   $$\theta^{t+1} =\theta^t - \frac{\eta^t}{\sigma^t}g^t=\theta^t - \frac{\eta}{\sqrt{\sum_{i=0}^{t} g^i\odot g^i}}g^t $$
   其中 $\odot$ 是哈达玛积,使得向量的对应元素相乘。另外，由于$g^i\odot g^i$依旧是向量，所以实际上AdaGrad算法中模型参数 $\theta$ 的分量都有他自己的学习率。
+
 ## 2. 收敛性
 在深度学习场景中，特别是在工业落地项目中，样本量往往都是上百万甚至上亿，这些数据是无法被一次性放入机器中去的，或者，有一些模型是线上部署的，服务器会实时地搜集用户数据并喂入模型，这些数据由于时空限制也是无法一次性放入内存中，所以我们只能分批次去加载这些数据，根据每批次的数据的去优化模型，这就是在线学习。
 
-我们假设$f_t(\theta)$是第$t$个批次的损失函数，一共有T个批次的数据，则 $f(\theta) = \sum_{t=1}^T f_t(\theta)$. 对于这种在线算法，我们从regret的角度去证明其收敛性。
+我们假设$f_t(\theta)$是第$t$个批次的损失函数，一共有T个批次的数据，则 $\displaystyle f(\theta) = \sum_{t=1}^T f_t(\theta)$. 对于这种在线算法，我们从regret的角度去证明其收敛性。
 
 ### 2.1、基本假设和参数设置
 假设损失函数$f_t(\theta)$是凸函数, 定义如下regret $R(T) = \sum_{t=1}^T f_t(\theta^t)-\min_{\theta}\sum_{t=1}^T f_t(\theta)$
