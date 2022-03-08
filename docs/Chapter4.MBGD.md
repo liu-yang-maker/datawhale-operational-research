@@ -18,19 +18,19 @@
 
 假设我们采用均方误差作为损失函数，对于一个样本$(a_i,b_i)$而言：
 $$
-\frac{1}{2}||h(a_i;x) - b_i||^2
+\frac{1}{2}\left\|h\left(a_{i} ; x\right)-b_{i}\right\|^{2}
 $$
 其中，$x$是模型$h$待优化的参数。对于批量大小为$n$的样本，其损失函数为
 $$
-J(x)=\frac{1}{2n}\sum_{i=1}^{n}(h(a_i;x)-b_i)^2
+J(x)=\frac{1}{2 n} \sum_{i=1}^{n}\left(h\left(a_{i} ; x\right)-b_{i}\right)^{2}
 $$
 计算 $J$ 对 $x$ 的梯度
 $$
-\nabla J(x) = \frac{1}{n}\sum_{i=1}^{n}(h(a_i;x)-b_i) \cdot h_x(a_i;x)
+\nabla J(x)=\frac{1}{n} \sum_{i=1}^{n}\left(h\left(a_{i} ; x\right)-b_{i}\right) \cdot h_{x}\left(a_{i} ; x\right)
 $$
 参数更新：
 $$
-x := x - \eta \cdot \nabla J(x)
+x:=x-\eta \cdot \nabla J(x)
 $$
 MBGD中一个关键的参数是学习率$\eta$，在实际训练中，通常采用学习率衰减的方式来保证算法收敛。下面给出简单代码：
 
@@ -48,9 +48,9 @@ for i in range(epochs):
 
 #### Lemma1 (梯度下降在凸函数上的收敛性)
 
-> 假设函数$f(x)$为凸函数，且满足$L-Lipschitz$条件，$f(x^*)=\inf_{x} f(x)$存在且可达。如果学习率$\alpha_k$满足$0<\alpha_k<\frac{1}{L}$，那么由迭代
+> 假设函数$f(x)$为凸函数，且满足$L-Lipschitz$条件，$f\left(x^{*}\right)=\inf _\limits{x} f(x)$存在且可达。如果学习率$\alpha_k$满足$0<\alpha_k<\frac{1}{L}$，那么由迭代
 > $$
-> x^{k+1}=x^k-\alpha_k \cdot \grad f(x^k)
+> x^{k+1}=x^{k}-\alpha_{k} \cdot \nabla f\left(x^{k}\right)
 > $$
 > 得到的点列$\{x^k\}$的函数值收敛到最优值$x^*$,且在函数值的意义下收敛速度为$\mathcal{O}(\frac{1}{k})$.
 
@@ -58,7 +58,7 @@ for i in range(epochs):
 
 > 若凸函数$f$是$\beta-Smooth$的，那么由迭代
 > $$
-> x^{k+1}=x^k-\alpha_k \cdot \grad f(x^k)
+> x^{k+1}=x^{k}-\alpha_{k} \cdot \nabla f\left(x^{k}\right)
 > $$
 > 得到的点列$\{x^k\}$的函数值收敛到一个稳定点.
 
@@ -70,7 +70,7 @@ for i in range(epochs):
 
 我们来回顾一下小批量的实现，如果我们选择```Batchsize```为64，则参数的更新为：
 $$
-w \rightarrow w'= w - \eta \frac{1}{64} \sum_{i=1}^{64}\grad J(x_i)
+w \rightarrow w^{\prime}=w-\eta \frac{1}{64} \sum_{i=1}^{64} \nabla J\left(x_{i}\right)
 $$
 当采用mini-batch时，我们可以将一个batch里的所有样本放在一个矩阵里，利用线性代数库来加速梯度的计算，这是工程实现中的一个优化方法。一个大的batch，可以充分利用矩阵、线性代数库来进行计算的加速，batch越小，则加速效果可能越不明显，导致优化过程太漫长。。当然batch也不是越大越好，太大时权重的更新就会不那么频繁，你可以理解为步长太大，最后收敛不到最优参数。
 
