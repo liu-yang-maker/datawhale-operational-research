@@ -25,27 +25,39 @@
 
 &emsp;&emsp;首先，我们回顾一下标准梯度下降的迭代公式：
 
-$$x_{t+1} = x_t - \alpha\nabla f(x_t)$$
+$$
+x_{t+1} = x_t - \alpha\nabla f(x_t)
+$$
 
 其中，$\alpha$ 叫做步长，或者叫做学习率（learning rate），而动量法在此基础上引入了“动量项“  $\beta(x_t - x_{t-1})$。因此，完整的动量迭代：
 
-$$ v_t = \beta v_{t-1} - \alpha\nabla f(x_t)$$
+$$
+v_t &= \beta v_{t-1} - \alpha\nabla f(x_t)
+$$
 
-$$ x_t = x_{t-1} + v_t$$
+$$
+x_t &= x_{t-1} + v_t
+$$
 
- $$v_t = \beta(x_t - x_{t-1})$$
+$$
+v_t &= \beta(x_t - x_{t-1})
+$$
 
 其中 $v_t$ 是当前速度，$\beta$ 是动量参数，是一个小于 1的正数，$\alpha$ 是学习率。
 
 &emsp;&emsp;如果我们把当前迭代想象成一个有质量的小球，那么我们的梯度下降更新应该与之前的步长成正比。整理可得：
 
-$$x_t+1 = x_t - \eta \nabla f(x_t) + \beta(x_t - x_{t-1})$$
+$$
+x_t+1 = x_t - \eta \nabla f(x_t) + \beta(x_t - x_{t-1})
+$$
 
 ### 2.2 实例推导
 
 &emsp;&emsp;接下来，我们以一个简单的凸函数来推导动量法，考虑一个简单的二次目标：
 
-$$\displaystyle f(x) = \frac{h}{2} x^2$$
+$$
+\displaystyle f(x) = \frac{h}{2} x^2
+$$
 
 于是有动量更新规则为：
 $$
@@ -146,17 +158,16 @@ $$
 
 &emsp;&emsp;假设梯度每次都等于 $g$，且方向相同，那么动量法在该反方向上使参数加速移动，有下面的公式：
 
-$$ v_0 = 0$$
-
-$$ v_1 = \beta v_0 + \alpha g = \alpha g$$
-
-$$ v_2 = \beta v_1 + \alpha g = (1 + \beta ) \alpha g$$
-
-$$ v_3 = \beta v_2 + \alpha g = (1 + \beta + \beta ^2) \alpha g$$
-
-$$ \cdots$$
-
-$$ v_{+ \infty} = (1 + \beta + \beta ^2 + \beta ^3 + \cdots) \alpha g = \frac{1}{1 - \beta } \alpha g$$
+$$
+\begin{align*}
+v_0 &= 0 \\
+v_1 &= \beta v_0 + \alpha g = \alpha g \\ 
+v_2 &= \beta v_1 + \alpha g = (1 + \beta ) \alpha g \\
+v_3 &= \beta v_2 + \alpha g = (1 + \beta + \beta ^2) \alpha g \\
+ &\cdots \\
+v_{+ \infty} &= (1 + \beta + \beta ^2 + \beta ^3 + \cdots) \alpha g = \frac{1}{1 - \beta } \alpha g \\
+\end{align*}
+$$
 
 &emsp;&emsp;如果我们把 $\beta $ 定为 $0.9$，那么更新幅度的峰值就是原本梯度乘学习率的 $10$ 倍。
 
@@ -383,7 +394,7 @@ plt.show()
 
 事实上，pytorch 内置了非常便捷的方式实现动量法，直接在 torch.optim.SGD(momentum=0.8) 即可，代码如下：
 
-```
+```python
 import torch
 import torch.utils.data as Dataa
 import torch.nn.functional as F
@@ -557,7 +568,7 @@ plt.show()
 
 <div align=center><img src=".\images\ch05-08.png" style="zoom:150%;" /></div>
 
-可以看到加完动量之后的 loss 下降的程度更低了，事实上，也可以将动量理解为一种惯性作用，所以每次更新的幅度都会比不加动量的情况更多。
+&emsp;&emsp;可以看到加完动量之后的 loss 下降的程度更低了，事实上，也可以将动量理解为一种惯性作用，所以每次更新的幅度都会比不加动量的情况更多。
 
 ---
 
