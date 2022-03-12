@@ -48,7 +48,7 @@ for i in range(epochs):
 
 #### 引理1 (梯度下降在凸函数上的收敛性)
 
-> 假设函数$f(x)$为凸函数，且满足$L-Lipschitz$条件，$\displaystyle f\left(x^{*}\right)=\inf _\limits{x} f(x)$存在且可达。如果学习率$\alpha_k$满足$\displaystyle 0<\alpha_k<\frac{1}{L}$，那么由迭代
+> 假设函数$f(x)$为凸函数，且满足$L-Lipschitz$条件，$f\left(x^{*}\right)=\inf _\limits{x} f(x)$存在且可达。如果学习率$\alpha_k$满足$\displaystyle 0<\alpha_k<\frac{1}{L}$，那么由迭代
 > $$
 > x^{k+1}=x^{k}-\alpha_{k} \cdot \nabla f\left(x^{k}\right)
 > $$
@@ -70,7 +70,7 @@ for i in range(epochs):
 
 &emsp;&emsp;我们来回顾一下小批量的实现，如果我们选择```Batchsize```为64，则参数的更新为：
 $$
-w \rightarrow w^{\prime}=w-\eta \frac{1}{64} \sum_{i=1}^{64} \nabla J\left(x_{i}\right)
+w \rightarrow w^{\prime}=w-\eta \cdot \frac{1}{64} \cdot \sum_{i=1}^{64} \nabla J\left(x_{i}\right)
 $$
 &emsp;&emsp;当采用mini-batch时，我们可以将一个batch里的所有样本放在一个矩阵里，利用线性代数库来加速梯度的计算，这是工程实现中的一个优化方法。一个大的batch，可以充分利用矩阵、线性代数库来进行计算的加速，batch越小，则加速效果可能越不明显，导致优化过程太漫长。当然batch也不是越大越好，太大时权重的更新就会不那么频繁，你可以理解为步长太大，最后收敛不到最优参数。
 
