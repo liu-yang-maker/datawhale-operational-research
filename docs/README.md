@@ -1,4 +1,4 @@
-# datawhale-operational-research
+# datawhale-operational-research {docsify-ignore-all}
 ###### Datawhale运筹小组
 
 在线阅读 https://liu-yang-maker.github.io/datawhale-operational-research/

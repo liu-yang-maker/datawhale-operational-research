@@ -1,4 +1,4 @@
-# AdaGrad变种
+# 第7章 AdaGrad变种
 
 ## RMSProp
 

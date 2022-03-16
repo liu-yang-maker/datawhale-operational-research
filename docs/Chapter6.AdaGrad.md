@@ -1,4 +1,4 @@
-# 6、AdaGrad
+# 第六章 AdaGrad
 ## 6.1 vanilla gradient descent
 
 
