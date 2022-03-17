@@ -51,7 +51,7 @@ for i in range(epochs):
 
 #### 引理（梯度下降在凸函数上的收敛性）
 
-> 假设函数$f(x)$为凸函数，且满足$L \text{-Lipschitz}$条件，$\displaystyle f\left(x^{*}\right)=\inf _\limits{x} f(x)$存在且可达。如果学习率$\alpha_k$满足$\displaystyle 0<\alpha_k<\frac{1}{L}$，那么由迭代
+> 假设函数$f(x)$为凸函数，且满足$L \text{-Lipschitz}$条件，$f (x^*)=\inf \limits_{x} f(x)$存在且可达。如果学习率$\alpha_k$满足$\displaystyle 0<\alpha_k<\frac{1}{L}$，那么由迭代
 > $$
 > x^{k+1}=x^{k}-\alpha_{k} \cdot \nabla f\left(x^{k}\right)
 > $$
@@ -134,13 +134,13 @@ max_iter,theta,loss_list=MBGD(X,y)
 plt.plot(loss_list)
 ```
 
-<img src="images/ch04-01.png" alt="1" style="zoom:150%;" />
+<img src="images/ch04/01.png" alt="1" style="zoom:150%;" />
 
 &emsp;&emsp;由上图可知，小批量随机下降最终会趋于收敛，但在收敛过程中，由于随机算法抽样的不确定性，会导致训练过程中的损失会有波动现象。
 
 ## 参考文献
 
-1. 刘浩洋, 户将, 李勇锋, 文再文. (2021). 最优化：建模、算法与理论. 北京: 高教出版社.
-2. Ruder S. An overview of gradient descent optimization algorithms[J]. arXiv preprint arXiv:1609.04747, 2016.
-3. Nocedal J. Optimization Methods for Large-Scale Machine Learning [J][J]. Siam Review, 2016, 60(2).
+【1】刘浩洋, 户将, 李勇锋, 文再文. (2021). 最优化：建模、算法与理论. 北京: 高教出版社.  
+【2】Ruder S. An overview of gradient descent optimization algorithms[J]. arXiv preprint arXiv:1609.04747, 2016.  
+【3】Nocedal J. Optimization Methods for Large-Scale Machine Learning [J][J]. Siam Review, 2016, 60(2).  
 
