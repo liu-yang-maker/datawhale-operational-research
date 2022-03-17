@@ -24,7 +24,7 @@ $$
 \text{s.t.} & \|w - w_t\|_2 \leqslant \epsilon
 \end{array}
 $$
-该最优解是$w + \delta$ ，其中 $\delta = -\alpha \nabla f(w_t)$。
+该最优解是 $w + \delta$ ，其中 $\delta = -\alpha \nabla f(w_t)$。
 
 ### 2.1.1 泰勒展开的形式化
 

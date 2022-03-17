@@ -17,7 +17,7 @@
 
 ## 内容设置
 
-### （第一期）Datawhale运筹-优化与深度学习篇
+### （第一期）Datawhale运筹 - 优化与深度学习篇
 
 1. [优化与深度学习](Chapter1.优化与深度学习.md)
 2. [优化算法概述](Chapter2.优化算法概述.md)
@@ -101,6 +101,8 @@
 | 刘斯豪 | 广东工业大学数学与统计学院                    | 公众号：Lau Chaos                                            |
 | 黄建国 | 上海科技大学信息学院                          | [知乎](https://www.zhihu.com/people/ding-jian-cai-niao-91)   |
 | 李振东 | 上海大学数学系                                | [个人主页](dmax13.ltd)                                       |
+| 林景   | 武汉理工数学学院                              |                                                              |
+| 胡锐锋 | datawhale成员，国网大数据平台工程师           | https://github.com/Relph1119                                 |
 
 #### 其他
 
