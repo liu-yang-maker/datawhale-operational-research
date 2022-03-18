@@ -134,7 +134,7 @@ max_iter,theta,loss_list=MBGD(X,y)
 plt.plot(loss_list)
 ```
 
-<img src="images/ch04/01.png" alt="1" style="zoom:150%;" />
+<img src="./images/ch04/01.png" alt="1" style="zoom:150%;" />
 
 &emsp;&emsp;由上图可知，小批量随机下降最终会趋于收敛，但在收敛过程中，由于随机算法抽样的不确定性，会导致训练过程中的损失会有波动现象。
 
