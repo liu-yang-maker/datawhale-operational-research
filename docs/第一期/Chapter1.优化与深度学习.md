@@ -104,7 +104,7 @@ plt.show()
 
 &emsp;&emsp;具体的我们给定训练集 $D=\{(a_1, b_1),(a_2, b_2), \cdots,(a_m, b_m)\}, a_i \in R^p, b_i \in R^q$，如下图给出了一种由 $p$ 个输入单元和 $q$ 个输出单元构成的 $L+2$ 层感知机，其含有一个输入层，一个输出层，和 $L$ 个隐藏层。
 
-<img src="images/ch01/01.png" style="zoom:50%;" />
+![img](./images/ch01/01.png)
 
 &emsp;&emsp;在第 $l$ 隐藏层中，第 $i$ 个单元计算输出信息 $y_i^{(l)}$ 为
 $$
