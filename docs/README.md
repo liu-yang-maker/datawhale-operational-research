@@ -19,13 +19,13 @@
 
 ### （第一期）Datawhale运筹 - 优化与深度学习篇
 
-1. [优化与深度学习](Chapter1.优化与深度学习.md)
-2. [优化算法概述](Chapter2.优化算法概述.md)
-3. [梯度下降与随机梯度下降](Chapter3.梯度下降与随机梯度下降.md)
-4. [小批量随机梯度下降](Chapter4.MBGD.md)
-5. [动量法](Chapter5.Momentum.md)
-6. [AdaGrad](Chapter6.AdaGrad.md)
-7. [AdaGrad变种 - Adam](Chapter7.Adam.md)
+1. [优化与深度学习](./第一期/Chapter1.优化与深度学习.md)
+2. [优化算法概述](./第一期/Chapter2.优化算法概述.md)
+3. [梯度下降与随机梯度下降](./第一期/Chapter3.梯度下降与随机梯度下降.md)
+4. [小批量随机梯度下降](./第一期/Chapter4.MBGD.md)
+5. [动量法](./第一期/Chapter5.Momentum.md)
+6. [AdaGrad](./第一期/Chapter6.AdaGrad.md)
+7. [AdaGrad变种 - Adam](./第一期/Chapter7.Adam.md)
 
 
 
