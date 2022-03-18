@@ -34,7 +34,7 @@ $$
 
 &emsp;&emsp;假设现在采用的优化算法是最普通的梯度下降法`mini-batch`，它的移动方向如下面蓝色所示：
 
-<center><img src="images/ch07/01.png" style="zoom:50%;" /></center>
+![](images/ch07/01.png)
 
 &emsp;&emsp;假设现在就只有两个参数 $w,b$，从图中可以看到在 $b$ 方向走得比较陡峭，这影响了优化速度。还可以看出在 $b$ 方向上的梯度 $g$ 要大于在 $w$ 方向上的梯度。
 
@@ -42,7 +42,7 @@ $$
 
 &emsp;&emsp;在参数空间更为平缓的方向，会取得更大的进步（因为平缓，所以历史梯度平方和较小，对应学习下降的幅度较小），并且能够使得陡峭的方向变得平缓，从而加快训练速度。这就是RMSProp优化算法的直观好处。
 
-<center><img src="images/ch07/02.png" style="zoom:50%;" /></center>
+![](images/ch07/02.png)
 
 ## 7.2 AdaDelta
 
