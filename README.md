@@ -51,18 +51,6 @@
 
 
 
-### Datawhale运筹-优化篇
-
-1. 无约束优化基础
-2. 线性搜索方法
-4. 共轭梯度法
-5. 拟牛顿法
-5. 信赖域方法（选）
-5. 约束优化基础
-7. 罚函数法与增广拉格朗日法
-8. SQP方法
-9. 内点法
-
 ### Datawhale运筹-图论篇
 
 注：可以单独介绍也可以分散到各章节介绍
@@ -106,8 +94,8 @@
 | 刘斯豪 | 广东工业大学数学与统计学院                    | 公众号：Lau Chaos                                            |
 | 黄建国 | 上海科技大学信息学院                          | [知乎](https://www.zhihu.com/people/ding-jian-cai-niao-91)   |
 | 李振东 | 上海大学钱伟长学院                            | [知乎主页](https://www.zhihu.com/people/li-zhen-dong-50-19) <br />[个人主页](https://dmax13.ltd) |
-| 林景   | 武汉理工数学学院                              |                                                              |
-| 胡锐锋 | datawhale成员，国网大数据平台工程师           | https://github.com/Relph1119                                 |
+| 林景   | 武汉理工大学理学院数学系                      | [CSDN](https://blog.csdn.net/linjing_zyq)<br />[Github](https://github.com/linjing-lab) |
+| 胡锐锋 | datawhale成员，国网大数据平台工程师           | [Github](https://github.com/Relph1119)                       |
 
 #### 其他
 
