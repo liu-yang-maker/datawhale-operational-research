@@ -73,6 +73,12 @@
 
 
 
+### Datawhale运筹-矩阵分析
+
+[在线阅读网页](https://liu-yang-maker.github.io/matrix-analysis/)
+
+
+
 ### 专题：
 
 #### Datawhale运筹-复杂性理论篇
@@ -85,12 +91,11 @@
 #### Datawhale运筹-随机过程篇（包括排队论）
 
 - 基础知识
-- 
-- 布朗运动
+- 泊松过程
 - 离散时间Markov 
 - 连续时间Markov
-
-
+- 排队论
+- 随机游走与鞅的简介
 
 
 
@@ -110,11 +115,20 @@
 
 
 
-#### Datawhale运筹-MDP篇
+#### Datawhale运筹-马尔可夫决策过程篇
+
+- 预备知识（关于随机过程）
+- 排队论
+- MDP绪论
+- 有限阶段MDP
+- MDP折扣模型
+- MDP平均模型
 
 
 
 #### Datawhale运筹-应用篇
+
+...
 
 
 
