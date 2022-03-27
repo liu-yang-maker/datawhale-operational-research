@@ -4,20 +4,20 @@
 
 ## 2.1 梯度下降（Gradient descent ）
 
-&emsp;&emsp;假设我们现在想要找出一个多元连续函数$f(w)$ 的最小值 $\displaystyle \min \limits_{w \in R^d}f(w)$，其梯度下降算法如下：
+&emsp;&emsp;假设我们现在想要找出一个多元连续函数 $f(w)$ 的最小值 $\displaystyle \min \limits_{w \in R^d}f(w)$，其梯度下降算法如下：
 $$
 w_0 = \text{initialization} \\
 w_{t+1} = w_t - \eta \nabla f(w_t)
 $$
 其中，$\eta$ 称为步长或学习率。
 
-&emsp;&emsp;梯度下降算法的一个核心思想就是找出局部最陡的梯度下降方向$-\nabla f(w_t)$。
+&emsp;&emsp;梯度下降算法的一个核心思想就是找出局部最陡的梯度下降方向 $-\nabla f(w_t)$。
 
 &emsp;&emsp;我们来考虑该点的泰勒展开式：
 $$
 f(w) = f(w_t) + \underbrace {\left\langle \nabla f(w_t), w - w_t \right\rangle}_{\text{linear in } w} + \cdots
 $$
- &emsp;&emsp;假设去掉高阶项，只在$w_t$  的一个邻域内优化一阶近似式，即
+ &emsp;&emsp;假设去掉高阶项，只在 $w_t$  的一个邻域内优化一阶近似式，即
 $$
 \begin{array}{cl}
 \mathop{\arg\min} \limits_{w \in R^d} &  f(w_t) + \left\langle \nabla f(w_t), w - w_t \right\rangle \\
@@ -28,9 +28,9 @@ $$
 
 ### 2.1.1 泰勒展开的形式化
 
-&emsp;&emsp;我们下面来陈述一个引理，它刻画了梯度下降算法下函数值的下降。先假设函数$f(w)$ 的二阶梯度是有界的，即$\nabla^2 f(w) \in [-L, L], \forall w$ ，称满足这个条件的函数为L-光滑函数。
+&emsp;&emsp;我们下面来陈述一个引理，它刻画了梯度下降算法下函数值的下降。先假设函数 $f(w)$ 的二阶梯度是有界的，即 $\nabla^2 f(w) \in [-L, L], \forall w$ ，称满足这个条件的函数为 L-光滑函数。
 
-> Definition (L -smoothness). A function $f: R^n \rightarrow R$ called L- smooth iffor all $x, y \in R^n$，the following inequality holds:
+> Definition (L -smoothness). A function $f: R^n \rightarrow R$ called L- smooth if for all $x, y \in R^n$，the following inequality holds:
 > $$
 > \|\nabla f(x) - \nabla f(y)\| \leqslant L \|x - y \|.
 > $$
@@ -70,7 +70,7 @@ $$
 
 ## 2.2 随机梯度下降（Stochastic gradient descent）
 
-&emsp;&emsp;在深度学习中，目标函数通常是训练数据集中有关各个样本的损失函数求平均。设$f_i(x)$是有关索引为 $i$ 的训练数据样本的损失函数，$n$ 是训练数据样本数， $x$ 是模型的参数向量，那么目标函数定义为
+&emsp;&emsp;在深度学习中，目标函数通常是训练数据集中有关各个样本的损失函数求平均。设 $f_i(x)$ 是有关索引为 $i$ 的训练数据样本的损失函数，$n$ 是训练数据样本数， $x$ 是模型的参数向量，那么目标函数定义为
 $$
 f(x) = \frac{1}{n} \sum_{i=1}^n f_i(x)
 $$
@@ -78,13 +78,13 @@ $$
 $$
 \nabla f(x) = \frac{1}{n} \sum_{i=1}^n \nabla f_i(x)
 $$
-&emsp;&emsp;如果使用梯度下降，每次自变量迭代的计算开销为$O(n)$ ，它随着 $n$ 线性增长。因此，当训练数据样本数很大时，梯度下降每次迭代的计算开销很高。
+&emsp;&emsp;如果使用梯度下降，每次自变量迭代的计算开销为 $O(n)$ ，它随着 $n$ 线性增长。因此，当训练数据样本数很大时，梯度下降每次迭代的计算开销很高。
 
-&emsp;&emsp;随机梯度下降（stochastic gradient descent，SGD）减少了每次迭代的计算开销。在随机梯度下降的每次迭代中，随机均匀采样的一个样本索引$i \in \{1,2, \cdots, n\}$ ，并计算梯度$\nabla f_i(x)$  来迭代 $x$ :
+&emsp;&emsp;随机梯度下降（stochastic gradient descent，SGD）减少了每次迭代的计算开销。在随机梯度下降的每次迭代中，随机均匀采样的一个样本索引 $i \in \{1,2, \cdots, n\}$ ，并计算梯度 $\nabla f_i(x)$  来迭代 $x$ :
 $$
 x \leftarrow x - \eta \nabla f_i(x)   
 $$
-&emsp;&emsp;这里 $\eta$ 同样是学习率。可以看到，每次迭代的计算开销从梯度下降的 $O(x)$  降到了常数$O(1)$ 。值得强调的是，随机梯度 $\nabla f_i(x)$是对梯度 $\nabla f(x)$  的无偏估计：
+&emsp;&emsp;这里 $\eta$ 同样是学习率。可以看到，每次迭代的计算开销从梯度下降的 $O(x)$  降到了常数 $O(1)$ 。值得强调的是，随机梯度 $\nabla f_i(x)$ 是对梯度 $\nabla f(x)$ 的无偏估计：
 $$
 E_i \nabla f_i(x) = \frac{1}{n} \sum_{i=1}^n \nabla f_i(x) = \nabla f(x)
 $$
@@ -96,11 +96,11 @@ $$
 
 ![img](./images/ch02/01.jpg)
 
-&emsp;&emsp;可以看到在同一位置上，目标函数在竖直方向（ $x_2$轴方向）比在水平方向（$x_1$ 轴方向）的斜率的绝对值更大。因此，在给定学习率的情况下，梯度下降迭代自变量时，会使自变量在竖直方向比在水平方向移动幅度更大。那么，我们需要一个较小的学习率，从而避免自变量在竖直方向上越过目标函数最优解。但是，这会造成自变量在水平方向上朝最优解移动变慢。如果学习率调得稍大一点，将使得自变量在竖直方向不断越过最优解并逐渐发散。
+&emsp;&emsp;可以看到在同一位置上，目标函数在竖直方向（$x_2$轴方向）比在水平方向（$x_1$ 轴方向）的斜率的绝对值更大。因此，在给定学习率的情况下，梯度下降迭代自变量时，会使自变量在竖直方向比在水平方向移动幅度更大。那么，我们需要一个较小的学习率，从而避免自变量在竖直方向上越过目标函数最优解。但是，这会造成自变量在水平方向上朝最优解移动变慢。如果学习率调得稍大一点，将使得自变量在竖直方向不断越过最优解并逐渐发散。
 
 ![img](./images/ch02/02.jpg)
 
-&emsp;&emsp;动量法的提出是为了解决梯度下降的上述问题。设时间步 $t$ 的自变量为 $x_t$，学习率为 $\eta_t$。 在时间步为0，速度变量为$v_0$，并将其元素初始化成0。在时间步$t > 0$时，对每次迭代的步骤将做如下修改：
+&emsp;&emsp;动量法的提出是为了解决梯度下降的上述问题。设时间步 $t$ 的自变量为 $x_t$，学习率为 $\eta_t$。 在时间步为 0 时，速度变量为 $v_0$，并将其元素初始化成 0。在时间步 $t > 0$时，对每次迭代的步骤将做如下修改：
 $$
 \begin{array}{lll}
 v_t \leftarrow \gamma v_{t-1} + \eta_t g_t \\
@@ -141,9 +141,9 @@ $$
 
 ## 2.4 本地运行时间分析
 
-&emsp;&emsp;当迭代接近局部极小值时，梯度下降行为更为明显，因为该函数可以用二次函数进行局部逼近。这里为了简单起见，我们假设正在优化一个凸二次函数，并了解函数的曲率是如何影响算法的收敛性。
+&emsp;&emsp;当迭代接近局部极小值时，梯度下降行为更为明显，因为目标函数可以用二次函数进行局部逼近。这里为了简单起见，我们假设正在优化一个凸二次函数，并了解函数的曲率是如何影响算法的收敛性。
 
-&emsp;&emsp;我们用梯度下降方法来优化 如下函数：
+&emsp;&emsp;我们用梯度下降方法来优化如下函数：
 $$
 \min \limits_{w} \frac{1}{2} w^T A w
 $$
@@ -151,7 +151,7 @@ $$
 
 **注：**假设 $A$ 是对角矩阵（对角化是线性代数中的一个基本idea）。
 
-&emsp;&emsp;假设$A$的SVD分解是$A = U \Sigma U^T$ ，其中 $\Sigma$ 是个对角矩阵。我们可以简单的验证得到 $w^T A w = \hat{w}^T \Sigma \hat{w}$，其中 $\hat{w} = U^T w$ 。换句话说，在由 $U$ 定义的一个不同的坐标系中，处理的是一个以对角矩阵 $\Sigma$ 为系数的二次型。注意，这里的对角化技术仅用于分析。
+&emsp;&emsp;假设$A$的SVD分解是 $A = U \Sigma U^T$ ，其中 $\Sigma$ 是个对角矩阵。我们可以简单的验证得到 $w^T A w = \hat{w}^T \Sigma \hat{w}$，其中 $\hat{w} = U^T w$ 。换句话说，在由 $U$ 定义的一个不同的坐标系中，处理的是一个以对角矩阵 $\Sigma$ 为系数的二次型。注意，这里的对角化技术仅用于分析。
 
 &emsp;&emsp;因此，假设 $A = \text{diag} (\lambda_1, \lambda_2, \cdots, \lambda_d)$，其中 $\lambda_1 \geqslant \lambda_2 \geqslant \cdots \geqslant \lambda_d$，这样该函数就可以化简为 
 $$
@@ -166,8 +166,8 @@ $$
 
 &emsp;&emsp;从上面的二次型例子中，我们可以看到，如果在不同的坐标系中使用不同的学习率，这将会得到优化。换句话说，如果对每个坐标引入一个学习率 $\eta_i = 1/\lambda_i$ ，那么可以实现更快的收敛。
 
-&emsp;&emsp;在 $A$ 不是对角阵这样的更一般的情况下，并且不知道坐标系，算法对应的梯度下降更新为$w \leftarrow w - A^{-1} \nabla f(w)$
+&emsp;&emsp;在 $A$ 不是对角阵这样的一般的情况下，并且不知道坐标系，算法对应的梯度下降更新为$w \leftarrow w - A^{-1} \nabla f(w)$
 
 &emsp;&emsp;在更一般的情况下，$f$ 不是二次函数，这与牛顿算法相对应，梯度下降更新为$w \leftarrow w - \nabla^2 f(w)^{-1} \nabla f(w)$  
 
-&emsp;&emsp;由于计算`Hessian`矩阵可能是非常困难的，因为它`scale quadratically in d`（在实践中可能超过100万）。因此，使用`hessian`函数及其逆函数的近似值。
+&emsp;&emsp;由于计算`Hessian`矩阵可能是非常困难的，因为它 `scale quadratically in d`（在实践中可能超过100万）。因此，使用`hessian`函数及其逆函数的近似值。
