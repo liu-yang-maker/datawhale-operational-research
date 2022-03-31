@@ -1,4 +1,4 @@
-# datawhale-operational-research
+# datawhale-operational-research {docsify-ignore-all}
 ###### Datawhale运筹小组
 
 在线阅读 https://liu-yang-maker.github.io/datawhale-operational-research/
@@ -17,35 +17,39 @@
 
 ## 内容设置
 
-### （第一期）Datawhale运筹-优化与深度学习篇
+### （第一期）Datawhale运筹 - 优化与深度学习篇
 
-1. [优化与深度学习](Chapter1.优化与深度学习.md)
-2. [优化算法概述](Chapter2.优化算法概述.md)
-3. [梯度下降与随机梯度下降](Chapter3.梯度下降与随机梯度下降.md)
-4. [小批量随机梯度下降](Chapter4.MBGD.md)
-5. [动量法](Chapter5.Momentum.md)
-6. [AdaGrad](Chapter6.AdaGrad.md)
-7. [AdaGrad变种 - Adam](Chapter7.Adam.md)
+1. [优化与深度学习](./第一期/Chapter1.优化与深度学习.md)
+2. [优化算法概述](./第一期/Chapter2.优化算法概述.md)
+3. [梯度下降与随机梯度下降](./第一期/Chapter3.梯度下降与随机梯度下降.md)
+4. [小批量随机梯度下降](./第一期/Chapter4.MBGD.md)
+5. [动量法](./第一期/Chapter5.Momentum.md)
+6. [AdaGrad](./第一期/Chapter6.AdaGrad.md)
+7. [AdaGrad变种 - Adam](./第一期/Chapter7.Adam.md)
+
+
+
+### （第二期）Datawhale运筹-优化基础算法篇
+
+1. 无约束优化基础
+2. 线性搜索方法
+3. 信赖域方法
+4. 共轭梯度法
+5. 拟牛顿法
+6. 约束优化基础
+7. 罚函数法
+8. 增广拉格朗日方法
 
 
 
 ### Datawhale运筹-线性规划篇
 
-对偶理论；单纯形算法；椭球算法；内点算法；网络流模型。
+- 凸分析基础
+- 单纯形算法
+- 对偶理论
+- 应用案例
 
-整数线性规划
 
-### Datawhale运筹-无约束优化篇
-
-1. 无约束优化基础
-2. 线性搜索方法
-4. 共轭梯度法
-5. 拟牛顿法
-5. 信赖域方法（选）
-5. 约束优化基础
-7. 罚函数法与增广拉格朗日法
-8. SQP方法
-9. 内点法
 
 ### Datawhale运筹-图论篇
 
@@ -57,22 +61,74 @@
 4. 匹配与最大匹配；完美匹配；二部图的匹配；二部图中最大匹配和最大权匹配的算法；
 5. Euler图；中国邮递员问题；Hamilton图；旅行商问题。
 
+
+
 ### Datawhale运筹-组合优化篇
 
-- 单纯形
-- 原始对偶
+- 动态规划
+- 分支定界
+- 贪婪算法
+- 整数规划
+- 在线算法
+
+
+
+### Datawhale运筹-矩阵分析
+
+[在线阅读网页](https://liu-yang-maker.github.io/matrix-analysis/)
+
+
 
 ### 专题：
 
+#### Datawhale运筹-复杂性理论篇
+
+- 历史
+- 图灵机
+- 复杂性分类
+- 复杂性判定与证明
+
 #### Datawhale运筹-随机过程篇（包括排队论）
+
+- 基础知识
+- 泊松过程
+- 离散时间Markov 
+- 连续时间Markov
+- 排队论
+- 随机游走与鞅的简介
+
+
 
 #### Datawhale运筹-库存论篇
 
+
+
 #### Datawhale运筹-博弈论篇
 
-#### Datawhale运筹-MDP篇
+- 零和博弈
+- 非零和博弈
+- 稳定匹配
+- 公平分配
+- 网络博弈
+- 合作博弈
+- 贝叶斯博弈
+
+
+
+#### Datawhale运筹-马尔可夫决策过程篇
+
+- 预备知识（关于随机过程）
+- 排队论
+- MDP绪论
+- 有限阶段MDP
+- MDP折扣模型
+- MDP平均模型
+
+
 
 #### Datawhale运筹-应用篇
+
+...
 
 
 
@@ -88,6 +144,8 @@
 | 刘斯豪 | 广东工业大学数学与统计学院                    | 公众号：Lau Chaos                                            |
 | 黄建国 | 上海科技大学信息学院                          | [知乎](https://www.zhihu.com/people/ding-jian-cai-niao-91)   |
 | 李振东 | 上海大学数学系                                | [个人主页](dmax13.ltd)                                       |
+| 林景   | 武汉理工大学理学院数学系                      | [CSDN](https://blog.csdn.net/linjing_zyq)<br />[Github](https://github.com/linjing-lab) |
+| 胡锐锋 | datawhale成员，国网大数据平台工程师           | [Github](https://github.com/Relph1119)                       |
 
 #### 其他
 
