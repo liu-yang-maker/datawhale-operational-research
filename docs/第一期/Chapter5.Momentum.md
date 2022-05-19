@@ -89,30 +89,18 @@ x_{0}
 \end{array}\right]
 $$
 
-&emsp;考虑将 $x_t$ 与最优的 $x^*$ 进行比较，有：
-
-$$
-\left[\begin{array}{c}
-x_{t+1}-x^{*} \\
-x_{t}-x^{*}
-\end{array}\right]=A^{t}\left[\begin{array}{l}
-x_{1}-x^{*} \\
-x_{0}-x^{*}
-\end{array}\right]
-$$
-
 &emsp;取范数：
 
 $$
 \left\|\left[\begin{array}{c}
-x_{t+1}-x^{*} \\
-x_{t}-x^{*}
+x_{t+1} \\
+x_{t}
 \end{array}\right]\right\|_{2}=\left\|A^{t}\left[\begin{array}{l}
-x_{1}-x^{*} \\
-x_{0}-x^{*}
+x_{1} \\
+x_{0}
 \end{array}\right]\right\|_{2} \leq\left\|A^{t}\right\|_{2}\left\|\left[\begin{array}{l}
-x_{1}-x^{*} \\
-x_{0}-x^{*}
+x_{1} \\
+x_{0}
 \end{array}\right]\right\|_{2}
 $$
 
@@ -123,22 +111,26 @@ $$
 &emsp;&emsp;所以，由上述 **定理**可知，存在一个矩阵范数满足：
 
 $$
-\left\|A^{t}\right\| \leqslant (\rho(A)+\epsilon)^{t}
+\left\|A^{t}\right\| \leqslant (\rho(A)+\epsilon)^{t} = O(\rho(A)^t)
 $$
 
 &emsp;&emsp;其中，$\rho (A) = \max \{ |\lambda_1, \lambda_2|\}$，$\lambda_1,\lambda_2$分别表示特征向量，因此有：
 
 $$
 \left\|\left[\begin{array}{c}
-x_{t+1}-x^{*} \\
-x_{t}-x^{*}
+x_{t+1} \\
+x_{t}
 \end{array}\right]\right\|_{2} \leq(\rho(A)+\epsilon)^{t}\left\|\left[\begin{array}{l}
-x_{1}-x^{*} \\
-x_{0}-x^{*}
+x_{1} \\
+x_{0}
+\end{array}\right]\right\|_{2}
+= O(\rho(A)^{t})\left\|\left[\begin{array}{l}
+x_{1} \\
+x_{0}
 \end{array}\right]\right\|_{2}
 $$
 
-&emsp;&emsp;可以发现，经过迭代最终能够收敛到一个稳定的点。
+&emsp;&emsp;因此，该算法将以 $A$ 的特征值的最大绝对值确定的线性速率收敛。
 
 ## 5.3 如何理解动量法
 
@@ -305,7 +297,7 @@ plt.show()
 
 ```python
 import torch
-import torch.utils.data as Dataa
+import torch.utils.data as Data
 import torch.nn.functional as F
 from torch.autograd import Variable
 import matplotlib.pyplot as plt
@@ -357,6 +349,11 @@ losses_momentum = []   # record loss
 vs = []
 for param in net_Momentum.parameters():
     vs.append(torch.zeros_like(param.data))
+
+def sgd_momentum(parameters, vs, lr, gamma):
+    for param, v in zip(parameters, vs):
+        v[:] = gamma * v + lr * param.grad.data
+        param.data = param.data - v  
 
 # training
 for epoch in range(EPOCH):
@@ -569,6 +566,6 @@ plt.show()
 【1】刘浩洋, 户将, 李勇锋, 文再文. (2021). 最优化：建模、算法与理论. 北京: 高教出版社.  
 【2】IFT 6169: Theoretical principles for deep learning，https://mitliagkas.github.io/ift6085-dl-theory-class/  
 【3】Pytorch 中文手册, https://wizardforcel.gitbooks.io/learn-dl-with-pytorch-liaoxingyu/content/3.6.2.html  
-【4】梯度下降的可视化解释(Adam，AdaGrad，Momentum，RMSProp)，https://mp.weixin.qq.com/s/LyNrPoEirLk0zwBxu0c18g  
+【4】梯度下降的可视化解释(Adam，AdaGrad，Momentum，RMSProp)，https://mp.weixin.qq.com/s/LyNrPoEirLk0zwBxu0c18g
 【5】Pytorch 学习笔记，https://www.yangsuoly.com/2021/04/08/Pytorch/  
 【6】S. Foucart. Matrix norm and spectral radius. University Lecture, 2012. URL http://www.math.drexel.edu/~foucart/TeachingFiles/F12/M504Lect6.pdf  
